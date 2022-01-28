@@ -9,9 +9,9 @@ def dnsresolveA(self):
     return resultA;
 
 def dnsresolveMX(self):
-    A_rec = dns.resolver.query(self,'MX')
+    MX_rec = dns.resolver.query(self,'MX')
     resultMX=''
-    for exdata in A_rec:
+    for exdata in MX_rec:
         resultMX=resultMX+'MX Record:'+exdata.to_text()+'\n'
     return resultMX; 
 

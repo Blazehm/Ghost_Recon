@@ -1,10 +1,14 @@
+import re
+from this import d
 from turtle import color
 import libs.whoisinfo as whois
 import libs.tracertinfo as trace
 import libs.builtwithinfo as builtwith
+import libs.waybackinfo as wayback
+import libs.dnsinfo as dnsinfo
 import pywebio
 from pywebio.input import input, input_group, checkbox, FLOAT, TEXT
-from pywebio.output import put_text, put_table, put_file, put_loading, put_row, put_code
+from pywebio.output import put_text, put_table, put_file, put_loading, put_row, put_code, put_link
 
 
 def execservice(domain, req_service):
@@ -27,8 +31,22 @@ def execservice(domain, req_service):
             put_row([put_code(key),None,put_code(b[key])])        
         print("Builtwith successful")
 
+    if 'wayback' in req_service:
+        w=wayback.wb(domain)
+        put_text("WAYBACK INFORMATION:\n")
+        put_text("Visit the following link:", w)
+
+    if 'dnsinfo-A' in req_service:
+        d=dnsinfo.dnsresolveA(domain)
+        put_text("DNS INFORMATION (A Records):\n",d)
+
+    if 'dnsinfo-MX' in req_service:
+        d=dnsinfo.dnsresolveMX(domain)
+        put_text("DNS INFORMATION (MX Records):\n",d)     
+
+
 def reconserver():
-    servicelist=['whois','traceroute','builtwith']
+    servicelist=['whois','traceroute','builtwith','wayback','dnsinfo-A','dnsinfo-MX']
     
     data= input_group(
         "Required Information",
@@ -43,22 +61,6 @@ def reconserver():
     req_service=[]
     req_service=data['servicedata']
     execservice(domain, req_service) 
-
-    """
-    put_table(
-        [
-            ["Field", "Data"],
-            ["domain", data['domain']],
-            ["Service required", data['servicedata']]
-        ]
-    )"""
-    
-    """
-    
-    input("Input domain name", type=TEXT)
-    checkbox("Services Required", options=['whois','traceroute'])
-    
-    """
     
 
 if __name__ == '__main__':

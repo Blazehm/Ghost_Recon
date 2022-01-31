@@ -11,41 +11,41 @@ from pywebio.input import input, input_group, checkbox, FLOAT, TEXT
 from pywebio.output import put_text, put_table, put_file, put_loading, put_row, put_code, put_link
 
 
-def execservice(domain, req_service):
-    if 'whois' in req_service:
+def execservice(domain, req_service): #Function containing situational definitions
+    if 'whois' in req_service: #Pulling whois information
         w=whois.who(domain)
         with put_loading(shape='border', color='primary'):
             put_text("WHOIS INFORMATION:\n", w)
             print("Whois successful")
 
-    if 'traceroute' in req_service:
+    if 'traceroute' in req_service: #Pulling traceroute information
         t=trace.tracert(domain)
         with put_loading(shape='border', color='primary'):
             put_text("TRACEROUTE INFORMATION:\n", t)
             print("Traceroute successful")
 
-    if 'builtwith' in req_service:
+    if 'builtwith' in req_service: #Pulling builtwith information
         b=builtwith.bwith(domain)
         put_text("BUILTWITH INFORMATION:\n")
         for key in b:
             put_row([put_code(key),None,put_code(b[key])])        
         print("Builtwith successful")
 
-    if 'wayback' in req_service:
+    if 'wayback' in req_service: #Pulling information from the The Wayback MAcine
         w=wayback.wb(domain)
         put_text("WAYBACK INFORMATION:\n")
         put_text("Visit the following link:", w)
 
-    if 'dnsinfo-A' in req_service:
+    if 'dnsinfo-A' in req_service: #Pulling Host Record information
         d=dnsinfo.dnsresolveA(domain)
         put_text("DNS INFORMATION (A Records):\n",d)
 
-    if 'dnsinfo-MX' in req_service:
+    if 'dnsinfo-MX' in req_service: #Pulling MX Record information
         d=dnsinfo.dnsresolveMX(domain)
         put_text("DNS INFORMATION (MX Records):\n",d)     
 
 
-def reconserver():
+def reconserver(): #Function asking for user input and sorting the input data
     servicelist=['whois','traceroute','builtwith','wayback','dnsinfo-A','dnsinfo-MX']
     
     data= input_group(
@@ -63,5 +63,5 @@ def reconserver():
     execservice(domain, req_service) 
     
 
-if __name__ == '__main__':
+if __name__ == '__main__': #Function to run the reconserver function in a web server, Web app listens for connection on port 80
     pywebio.start_server(reconserver, port=80)    

@@ -1,3 +1,4 @@
+from distutils.command.config import config
 import re
 from this import d
 from turtle import color
@@ -7,22 +8,22 @@ import libs.builtwithinfo as builtwith
 import libs.waybackinfo as wayback
 import libs.dnsinfo as dnsinfo
 import pywebio
-from pywebio.input import input, input_group, checkbox, FLOAT, TEXT
-from pywebio.output import put_text, put_table, put_file, put_loading, put_row, put_code, put_link
+#from pywebio import start_server, config
+from pywebio import pin
+from pywebio.input import input, input_group, checkbox, TEXT
+from pywebio.output import put_text, put_loading, put_row, put_code
 
-
+#@config(theme='dark')
 def execservice(domain, req_service): #Function containing situational definitions
     if 'whois' in req_service: #Pulling whois information
         w=whois.who(domain)
-        with put_loading(shape='border', color='primary'):
-            put_text("WHOIS INFORMATION:\n", w)
-            print("Whois successful")
+        put_text("WHOIS INFORMATION:\n", w)
+        print("Whois successful")
 
     if 'traceroute' in req_service: #Pulling traceroute information
         t=trace.tracert(domain)
-        with put_loading(shape='border', color='primary'):
-            put_text("TRACEROUTE INFORMATION:\n", t)
-            print("Traceroute successful")
+        put_text("TRACEROUTE INFORMATION:\n", t)
+        print("Traceroute successful")
 
     if 'builtwith' in req_service: #Pulling builtwith information
         b=builtwith.bwith(domain)

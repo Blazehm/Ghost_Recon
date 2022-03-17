@@ -5,8 +5,8 @@
 *IP History
 IP Location Finder
 Port Scanner
-Reverse DNS
+*Reverse DNS
 Reverse IP
-Reverse MX
+*Reverse MX
 Reverse NS
 *Traceroute

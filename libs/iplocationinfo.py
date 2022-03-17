@@ -2,7 +2,7 @@ import requests
 import json
 
 def iploc(target):
-    response = requests.get("https://api.viewdns.info/iplocation/?domain="+target+"&apikey=131f8092fc74a404acb826a4aa19877e86c1c766&output=json")
+    response = requests.get("http://ip-api.com/json/"+target)
     output=json.loads(response.text)
     
-    return output['response']
+    return output

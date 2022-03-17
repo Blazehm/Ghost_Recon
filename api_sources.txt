@@ -1,12 +1,12 @@
 #### viewdnsinfo ####
 
-DNS record lookup
-Get HTTP headers
-IP History
+*DNS record lookup
+*Get HTTP headers
+*IP History
 IP Location Finder
 Port Scanner
 Reverse DNS
 Reverse IP
 Reverse MX
 Reverse NS
-Traceroute
+*Traceroute
